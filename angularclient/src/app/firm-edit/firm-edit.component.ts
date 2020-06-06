@@ -17,10 +17,10 @@ export class FirmEditComponent implements OnInit {
   legalForm2: string;
   firmId: number;
   details2: string;
-  firm: Firm;
+  firm: Firm = new Firm();
   allAddresses: Address[];
   addresses: Address[];
-  obtaining: Obtaining;
+  obtaining: Obtaining = new Obtaining();
   address: Address = new Address(null, null, null, null, null, null, null);
 
   constructor(private firmService: FirmService, private addressService: AddressService, private route: ActivatedRoute, private router: Router) { }

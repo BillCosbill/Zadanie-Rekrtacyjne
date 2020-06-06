@@ -4,9 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {FormsModule} from '@angular/forms';
-import { PersonListComponent } from './person-list/person-list.component';
 import {HttpClientModule} from '@angular/common/http';
-import { AddressListComponent } from './address-list/address-list.component';
 import { PersonDetailsComponent } from './person-details/person-details.component';
 import { FirmDetailsComponent } from './firm-details/firm-details.component';
 import { WorkerListComponent } from './worker-list/worker-list.component';
@@ -21,8 +19,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
-    PersonListComponent,
-    AddressListComponent,
     PersonDetailsComponent,
     FirmDetailsComponent,
     WorkerListComponent,

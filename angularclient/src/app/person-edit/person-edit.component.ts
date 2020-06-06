@@ -15,10 +15,10 @@ export class PersonEditComponent implements OnInit {
 
   personId: number;
   details2: string;
-  person: Person;
+  person: Person = new Person();
   allAddresses: Address[];
   addresses: Address[];
-  obtaining: Obtaining;
+  obtaining: Obtaining = new Obtaining();
   address: Address = new Address(null, null, null, null, null, null, null);
 
   constructor(private personService: PersonService, private addressService: AddressService, private route: ActivatedRoute, private router: Router) { }
