@@ -1,0 +1,114 @@
+.details-navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  float: right;
+  margin: auto 20px auto auto;
+}
+
+.buttons .btn{
+  height: 50px;
+  width: 150px;
+  cursor: pointer;
+  margin-left: 20px;
+  padding: 5px 10px;
+  background-color: #5bfcff;
+  border: 2px solid cadetblue;
+}
+
+.buttons .btn:hover{
+  background-color: lightgrey;
+}
+
+.contact-add-page {
+  display: flex;
+  flex-direction: column;
+}
+
+#title{
+  margin: auto;
+}
+
+.contact-type input{
+  margin-left: 100px;
+}
+
+.contact-type h1{
+  margin-left: 50px;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: black;
+  margin: 10px auto;
+}
+
+.contact-data {
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
+  margin-left: 100px;
+}
+
+.contact-data div{
+  margin-top: 10px;
+}
+
+.address-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-right: 100px;
+}
+
+.address-buttons p{
+  padding: 5px 10px;
+  margin-right: 50px;
+  background-color: #5bfcff;
+  border: 2px solid cadetblue;
+  cursor: pointer;
+}
+
+#save, #cancel{
+  padding: 5px 10px;
+  margin-right: 50px;
+  background-color: #5bfcff;
+  border: 2px solid cadetblue;
+  cursor: pointer;
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
+.delete-address{
+  width: 80px;
+  background-color: #5bfcff;
+  border: 2px solid cadetblue;
+  cursor: pointer;
+  text-align: center;
+  margin-left: 10px;
+}
+
+.options {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#backButton {
+  float: right;
+  margin-right: 100px;
+  padding: 5px 10px;
+  background-color: #5bfcff;
+  border: 2px solid cadetblue;
+  cursor: pointer;
+}
+
+#addressListElement:hover {
+  cursor: pointer;
+}

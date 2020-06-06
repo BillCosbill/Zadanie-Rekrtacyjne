@@ -1,0 +1,102 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+td, th {
+  padding: 20px 20px;
+}
+
+.details-page {
+  width: 90vw;
+  margin: auto;
+}
+
+.details-page h1{
+  text-align: center;
+}
+
+.options {
+  display: flex;
+  flex-direction: row;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  float: right;
+  margin: auto 20px auto auto;
+}
+
+.buttons .btn{
+  height: 50px;
+  width: 150px;
+  cursor: pointer;
+  margin-left: 20px;
+  padding: 5px 10px;
+  background-color: #5bfcff;
+  border: 2px solid cadetblue;
+  margin-bottom: 20px;
+}
+
+.buttons .btn:hover{
+  background-color: lightgrey;
+}
+
+.form-control {
+  width: 500px;
+}
+
+.go-to-details:hover {
+  cursor: pointer;
+  background-color: lightgrey;
+}
+
+.custom-pagination {
+  margin-top: 20px;
+}
+
+.pagination-previous,.pagination-next{
+  display: inline-block;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 40px;
+}
+
+.pagination-previous:hover{
+  color: #2ecc71;
+}
+
+.pagination-next:hover {
+  color: #2ecc71;
+}
+
+.page-number {
+  margin: auto;
+}
+
+.custom-pagination .page-number{
+  display: inline-block;
+  padding: 5px 12px;
+  background: #afffe6;
+  margin: 0 4px;
+  border-radius: 25px;
+}
+
+.page-number.current{
+  background: #ffffff!important;
+  border: 2px solid #458873;
+}
+
+.page-number span{
+  display: block;
+  width: 28px;
+  height: 28px;
+  font-size: 18px;
+  cursor: pointer;
+}
+

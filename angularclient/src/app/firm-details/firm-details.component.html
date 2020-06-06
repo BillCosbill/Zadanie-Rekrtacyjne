@@ -1,0 +1,43 @@
+<div class="details-page">
+  <div class="details-navbar">
+    <h1 [routerLink]="['/firmDetails', (firmId)]">Podsumowanie</h1>
+    <h1 [routerLink]="['/workersList', (firmId)]">Pracownicy</h1>
+    <div class="buttons">
+      <button [routerLink]="['/firmEdit', (firmId)]" class="btn">Edycja</button>
+      <button class="btn" routerLink="/contactList">Lista kontaktów</button>
+    </div>
+  </div>
+
+  <div class="line"></div>
+
+  <div class="details-data">
+    <div class="column">
+      <p><span>Nazwa firmy:</span> {{firm.name}}</p>
+      <p><span>NIP:</span> {{firm.nip}}</p>
+      <p><span>Typ:</span> {{firm.type}}</p>
+      <p><span>REGON:</span> {{firm.regon}}</p>
+      <p><span>KRS:</span> {{firm.krs}}</p>
+      <p><span>Forma prawna:</span> {{firm.legalForm}}</p>
+      <p><span>Telefon:</span> {{firm.phoneNumber}}</p>
+      <p><span>Email: </span> {{firm.email}}</p>
+      <p><span>Informacje dodatkowe:</span> {{firm.additionalInformations}}</p>
+    </div>
+    <div class="column">
+      <p><span>Sposób pozyskania:</span> {{obtaining.obtainingWay}}</p>
+      <p><span>Rekomendacja:</span> {{obtaining.details}}</p>
+    </div>
+
+
+  </div>
+
+  <div class="line"></div>
+
+  <div class="details-address">
+    <h1>Adresy:</h1>
+    <div *ngFor="let address of addresses" class="addresses">
+      <p><span>{{address.addressType}}</span></p>
+      <p>ul. {{address.street}} {{address.apartmentNumber}}/{{address.houseNumber}}</p>
+      <p>{{address.zipCode}} {{address.city}}</p>
+    </div>
+  </div>
+</div>

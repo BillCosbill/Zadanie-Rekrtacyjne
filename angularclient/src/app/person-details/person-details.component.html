@@ -1,0 +1,45 @@
+<div class="details-page">
+  <div class="details-navbar">
+    <h1>Podsumowanie</h1>
+    <div class="buttons">
+      <button [routerLink]="['/personEdit', (personId)]" class="btn" >Edycja</button>
+      <button class="btn" routerLink="/contactList">Lista kontaktów</button>
+    </div>
+  </div>
+
+  <div class="line"></div>
+
+  <div class="details-data">
+      <div class="column">
+        <p><span>Imię:</span> {{person.name}}</p>
+        <p><span>Nazwisko:</span> {{person.lastName}}</p>
+        <p><span>PESEL:</span> {{person.pesel}}</p>
+        <p><span>Email:</span> {{person.email}}</p>
+        <p><span>Telefon:</span> {{person.phoneNumber}}</p>
+        <p><span>Informacje dodatkowe:</span> {{person.additionalInformations}}</p>
+      </div>
+      <div class="column">
+        <p><span>Sposób pozyskania:</span> {{obtaining.obtainingWay}}</p>
+        <p><span>Rekomendacja:</span> {{obtaining.details}}</p>
+      </div>
+
+
+  </div>
+
+  <div class="line"></div>
+
+
+  <div class="details-address">
+    <h1>Adresy:</h1>
+    <div *ngFor="let address of addresses" class="addresses">
+      <p><span>{{address.addressType}}</span></p>
+      <p>ul. {{address.street}} {{address.apartmentNumber}}/{{address.houseNumber}}</p>
+      <p>{{address.zipCode}} {{address.city}}</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+

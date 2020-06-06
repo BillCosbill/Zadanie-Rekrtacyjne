@@ -1,0 +1,152 @@
+<div class="details-page">
+  <div class="details-navbar">
+    <h1 [routerLink]="['/firmDetails', (firmId)]">Podsumowanie</h1>
+    <h1 [routerLink]="['/workersList', (firmId)]">Pracownicy</h1>
+    <div class="buttons">
+      <button class="btn" routerLink="/contactList">Lista kontaktów</button>
+    </div>
+  </div>
+
+  <div class="line"></div>
+
+  <div>
+    <h2>Lista pracowników</h2>
+    <table>
+      <thead>
+      <tr>
+        <th scope="col">Imię</th>
+        <th scope="col">Nazwisko</th>
+        <th scope="col">Stanowisko</th>
+        <th scope="col">Telefon</th>
+        <th scope="col">Status</th>
+        <th scope="col">Akcje</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let worker of workers">
+        <td>{{ worker.name }}</td>
+        <td>{{ worker.lastName }}</td>
+        <td>{{ worker.position }}</td>
+        <td>{{ worker.phoneNumber }}</td>
+        <td>
+          <i *ngIf="this.statusToString(worker.status) == 'Aktywny'" (click)="openModal(worker)" data-toggle="modal" data-target="#changeStatus" class="fas fa-check"></i>
+          <i *ngIf="this.statusToString(worker.status) == 'Nieaktywny'" (click)="openModal(worker)" data-toggle="modal" data-target="#changeStatus" class="fas fa-times"></i>
+          {{ this.statusToString(worker.status) }}
+        </td>
+        <td>
+            <i (click)="openModal(worker)" data-toggle="modal" data-target="#editWorker" class="fas fa-pencil-alt"></i>
+            <i (click)="deleteWorker(worker)" class="fas fa-times"></i>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <button class="btn" (click)="openAddingWorkerWindow()" data-toggle="modal" data-target="#addWorker">Dodaj</button>
+</div>
+
+
+<!-- Add Worker Window -->
+<div class="modal" id="addWorker">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Dane pracownika</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <div class="data">
+        <label for="name">Imię</label><br>
+        <input id="name" type="text"  name="name" [(ngModel)]="workerInModal.name"/>
+      </div>
+
+      <div class="data">
+        <label for="lastName">Nazwisko</label><br>
+        <input id="lastName" type="text"  name="lastName" [(ngModel)]="workerInModal.lastName"/>
+      </div>
+
+      <div class="data">
+        <label for="position">Stanowisko</label><br>
+        <input id="position" type="text"  name="position" [(ngModel)]="workerInModal.position"/>
+      </div>
+
+      <div class="data">
+        <label for="phoneNumber">Telefon</label><br>
+        <input id="phoneNumber" type="text"  name="phoneNumber" [(ngModel)]="workerInModal.phoneNumber"/>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Anuluj</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="addWorker(workerInModal)">Dodaj</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Edit Worker Window -->
+<div class="modal" id="editWorker">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Dane pracownika</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <div class="data">
+        <label for="name">Imię</label><br>
+        <input id="name" type="text"  name="name" [(ngModel)]="workerInModal.name"/>
+      </div>
+
+      <div class="data">
+        <label for="lastName">Nazwisko</label><br>
+        <input id="lastName" type="text"  name="lastName" [(ngModel)]="workerInModal.lastName"/>
+      </div>
+
+      <div class="data">
+        <label for="position">Stanowisko</label><br>
+        <input id="position" type="text"  name="position" [(ngModel)]="workerInModal.position"/>
+      </div>
+
+      <div class="data">
+        <label for="phoneNumber">Telefon</label><br>
+        <input id="phoneNumber" type="text"  name="phoneNumber" [(ngModel)]="workerInModal.phoneNumber"/>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Anuluj</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="editWorker(workerInModal)">Zapisz</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Change Worker Status Window -->
+<div class="modal" id="changeStatus">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Potwierdzenie zmiany statusu</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        Kliknij przycisk Tak aby zmienić wartość statusu na przeciwną. Czy zatwierdzić zmianę?
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Nie</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="changeStatus(this.workerInModal)">Tak</button>
+      </div>
+
+    </div>
+  </div>
+</div>

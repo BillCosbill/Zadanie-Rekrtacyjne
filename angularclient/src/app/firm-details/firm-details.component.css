@@ -1,0 +1,60 @@
+.details-navbar h1 {
+  border: 1px solid black;
+  padding: 10px 30px;
+  cursor: pointer;
+}
+
+.details-navbar h1:hover {
+  background-color: lightgrey;
+}
+
+.details-page {
+  width: 90vw;
+  margin: auto;
+}
+
+.line {
+  width: 90vw;
+  height: 1px;
+  background-color: black;
+}
+
+.details-navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  float: right;
+  margin: auto 20px auto auto;
+}
+
+.buttons .btn{
+  height: 50px;
+  width: 150px;
+  cursor: pointer;
+  margin-left: 20px;
+  padding: 5px 10px;
+  background-color: #5bfcff;
+  border: 2px solid cadetblue;
+}
+
+.buttons .btn:hover{
+  background-color: lightgrey;
+}
+
+span {
+  font-weight: bold;
+}
+
+.details-data {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  margin-right: 50px;
+}

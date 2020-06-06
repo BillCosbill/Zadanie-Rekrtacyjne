@@ -1,0 +1,417 @@
+
+<div class="contact-add-page">
+
+<h1 id="title">Dodaj kontakt</h1>
+
+<div class="contact-type">
+
+  <h1>Rodzaj kontaktu</h1>
+
+  <div class="options">
+    <form>
+      <input (click)="reset()" [(ngModel)]="type" value="OsobaFizyczna" type="radio" id="OsobaFizyczna" name="type">
+      <label for="OsobaFizyczna">Osoba fizyczna</label>
+
+      <input (click)="reset()" [(ngModel)]="type" value="Firma" type="radio" id="Firma" name="type">
+      <label for="Firma">Firma</label><br>
+    </form>
+
+    <button id="backButton" routerLink="/contactList">Lista kontaktów</button>
+  </div>
+
+</div>
+
+
+<div class="line"></div>
+
+  <!-- FORMULARZ DLA FIRM -->
+  <div class="contact-data" *ngIf="type === 'Firma'">
+
+      <h1>Dane ogólne</h1>
+
+      <form *ngIf="!isSuccessful" name="firm" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+        <div>
+          <label for="name">Nazwa firmy*</label><br>
+          <input id="name" type="text"  name="name" [(ngModel)]="firm.name" required #name="ngModel"/>
+          <div *ngIf="f.submitted && name.invalid">
+            <div *ngIf="name.errors.required">Nazwa jest wymagana</div>
+          </div>
+        </div>
+
+        <div>
+          <label for="nip">NIP</label><br>
+          <input id="nip" type="text"  name="nip" [(ngModel)]="firm.nip" minlength="10" maxlength="10" #nip="ngModel"/>
+          <div *ngIf="f.submitted && nip.invalid">
+            <div *ngIf="nip.errors.maxlength || nip.errors.minlength">NIP musi składać się z 10 znaków</div>
+          </div>
+          <div *ngIf="!isNaN(firm.nip)">
+            NIP może składać się wyłącznie z cyfr
+          </div>
+        </div>
+
+        <div>
+          <label for="regon">Regon</label><br>
+          <input id="regon" type="text"  name="regon" [(ngModel)]="firm.regon" required #regon="ngModel"/>
+        </div>
+
+        <div>
+          <label for="krs">KRS</label><br>
+          <input id="krs" type="text"  name="krs" [(ngModel)]="firm.krs" required #krs="ngModel"/>
+        </div>
+
+        <label for="legalForm">Forma prawna</label><br>
+        <select name="legalForm" id="legalForm" [(ngModel)]="firm.legalForm" required  #legalForm="ngModel" >
+          <option value="none" selected> </option>
+          <option value="spolka_akcyjna">spółka akcyjna</option>
+          <option value="spolka_cywilna">spółka cywilna</option>
+          <option value="spolka_prawna">spółka prawna</option>
+          <option value="spolka_zoo">spółka z o.o.</option>
+          <option value="inne">inne</option>
+        </select>
+
+        <div *ngIf="firm.legalForm === 'inne'">
+          <label for="legalForm2">Jakie</label><br>
+          <textarea id="legalForm2" name="legalForm2" rows="4" cols="50" [(ngModel)]="legalForm2">
+          </textarea>
+        </div>
+
+        <div>
+          <label for="phoneNumber">Telefon</label><br>
+          <input id="phoneNumber" type="text"  name="phoneNumber" [(ngModel)]="firm.phoneNumber" #phoneNumber="ngModel"/>
+        </div>
+
+        <div>
+          <label for="email">Email</label><br>
+          <input id="email" type="email" name="email" [(ngModel)]="firm.email" email #email="ngModel"/>
+          <div *ngIf="f.submitted && email.invalid">
+            <div *ngIf="email.errors.email">Email musi być poprawny</div>
+          </div>
+        </div>
+
+        <div>
+          <label for="additionalInformations">Dodatkowe Informacje</label><br>
+          <textarea id="additionalInformations" [(ngModel)]="firm.additionalInformations" #additionalInformations="ngModel" name="additionalInformations" rows="4" cols="50">
+        </textarea>
+        </div>
+
+
+
+        <div class="line"></div>
+
+        <h1>Adres:</h1>
+
+        <h2>Lista adresów:</h2>
+        <div *ngFor="let add of addresses">
+          <span>{{add.addressType}}</span>
+          <span class="delete-address" (click)="delete(add)">Usuń</span>
+        </div>
+
+        <form *ngIf="!isSuccessful" name="address" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+          <div>
+            <label for="addressType">Nazwa typu adresu</label><br>
+            <input id="addressType" type="text"  name="addressType" [(ngModel)]="address.addressType" required  #addressType="ngModel"/>
+            <div *ngIf="f.submitted && addressType.invalid">
+              <div *ngIf="addressType.errors.required">Proszę podać nazwę typu adresu</div>
+            </div>
+          </div>
+
+          <div>
+            <label for="street">Ulica</label><br>
+            <input id="street" type="text"  name="street" [(ngModel)]="address.street" required  #street="ngModel"/>
+            <div *ngIf="f.submitted && street.invalid">
+              <div *ngIf="street.errors.required">Proszę podać nazwę ulicy</div>
+            </div>
+          </div>
+
+          <div>
+            <label for="houseNumber">Nr domu</label><br>
+            <input id="houseNumber" type="text"  name="houseNumber" [(ngModel)]="address.houseNumber" required  #houseNumber="ngModel"/>
+            <div *ngIf="f.submitted && houseNumber.invalid">
+              <div *ngIf="houseNumber.errors.required">Proszę podać numer domu</div>
+            </div>
+          </div>
+
+          <div>
+            <label for="apartmentNumber">Nr mieszkania</label><br>
+            <input id="apartmentNumber" type="text"  name="apartmentNumber" [(ngModel)]="address.apartmentNumber" required  #apartmentNumber="ngModel"/>
+            <div *ngIf="f.submitted && apartmentNumber.invalid">
+              <div *ngIf="apartmentNumber.errors.required">Proszę podać numer mieszkania</div>
+            </div>
+          </div>
+
+          <div>
+            <label for="zipCode">Kod pocztowy</label><br>
+            <input id="zipCode" type="text"  name="zipCode" [(ngModel)]="address.zipCode" required maxlength="6"  #zipCode="ngModel"/>
+            <div *ngIf="f.submitted && zipCode.invalid">
+              <div *ngIf="zipCode.errors.required">Proszę podać kod pocztowy</div>
+            </div>
+            <div *ngIf="!isZipCode(address.zipCode)">
+              Kod pocztowy musi mieć format: xx-xxx
+            </div>
+          </div>
+
+          <div>
+            <label for="city">Miasto</label><br>
+            <input id="city" type="text"  name="city" [(ngModel)]="address.city" required  #city="ngModel"/>
+            <div *ngIf="f.submitted && city.invalid">
+              <div *ngIf="city.errors.required">Proszę podać nazwę miasta</div>
+            </div>
+          </div>
+
+          <div class="address-buttons">
+            <p (click)="addAddress()">Dodaj adress</p>
+            <p (click)="clear()">Wyczyść</p>
+          </div>
+
+        </form>
+
+
+        <div class="line"></div>
+
+
+        <form *ngIf="!isSuccessful" name="obtaining" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+          <label for="obtainingWay">Sposób pozyskania</label><br>
+          <select name="obtainingWay" id="obtainingWay" [(ngModel)]="obtaining.obtainingWay" required  #obtainingWay="ngModel" >
+            <option value="none" selected> </option>
+            <option value="rekomendacja">rekomendacja</option>
+            <option value="konferencja_i_szkolenia">konferencja i szkolenie</option>
+            <option value="media_spolecznosciowe">media społecznościowe</option>
+            <option value="strona_www">strona www</option>
+          </select>
+
+          <div *ngIf="obtainingWay.value === 'rekomendacja'">
+            <div>
+              <label for="details">Rekomendujący</label><br>
+              <input id="details" type="text"  name="details" [(ngModel)]="obtaining.details" #details="ngModel"/>
+            </div>
+          </div>
+
+          <div *ngIf="obtainingWay.value === 'konferencja_i_szkolenia'">
+            <div>
+              <label for="details">Konferencja/Szkolenie</label><br>
+              <input id="details" type="text"  name="details" [(ngModel)]="obtaining.details" #details="ngModel"/>
+            </div>
+          </div>
+
+          <div *ngIf="obtainingWay.value === 'media_spolecznosciowe'">
+            <label for="details">Media społecznościowe</label><br>
+            <select name="details" id="details" [(ngModel)]="obtaining.details" size="5" required  #details="ngModel" >
+              <option value="facebook">Facebook</option>
+              <option value="twitter">Twitter</option>
+              <option value="linkedin">LinkedIn</option>
+              <option value="instagram">Instagram</option>
+              <option value="inne">Inne</option>
+            </select>
+
+            <div *ngIf="obtaining.details === 'inne'">
+              <label for="details2">Jakie</label><br>
+              <textarea id="details2" name="details2" rows="4" cols="50" [(ngModel)]="details2">
+            </textarea>
+            </div>
+
+          </div>
+        </form>
+
+        <div>
+          <button id="save">Zapisz</button>
+          <button routerLink="/contactList" id="cancel">Anuluj</button>
+        </div>
+
+        <div *ngIf="f.submitted && isAddingFailed">Dodawanie nieudane!<br />{{ errorMessage }}
+        </div>
+      </form>
+  </div>
+
+  <!-- FORMULARZ DLA OSÓB FIZYCZNYCH -->
+  <div class="contact-data" *ngIf="type === 'OsobaFizyczna'">
+
+    <h1>Dane ogólne</h1>
+
+    <form *ngIf="!isSuccessful" name="person" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+      <div>
+        <label for="name">Imię</label><br>
+        <input id="name" type="text"  name="name" [(ngModel)]="person.name"  #name="ngModel"/>
+      </div>
+
+      <div>
+        <label for="lastName">Nazwisko*</label><br>
+        <input id="lastName" type="text"  name="lastName" [(ngModel)]="person.lastName" required #lastName="ngModel"/>
+        <div *ngIf="f.submitted && lastName.invalid">
+          <div *ngIf="lastName.errors.required">Nazwisko jest wymagane</div>
+        </div>
+      </div>
+
+      <div>
+        <label for="pesel">PESEL</label><br>
+        <input id="pesel" type="text"  name="pesel" [(ngModel)]="person.pesel" minlength="11" maxlength="11" #pesel="ngModel"/>
+        <div *ngIf="f.submitted && pesel.invalid">
+          <div *ngIf="pesel.errors.maxlength || pesel.errors.minlength">PESEL musi składać się z 11 znaków</div>
+        </div>
+        <div *ngIf="!isNaN(person.pesel)">
+          PESEL może składać się wyłącznie z cyfr
+        </div>
+      </div>
+
+      <div>
+        <label for="email">Email</label><br>
+        <input id="email" type="email" name="email" [(ngModel)]="person.email" email #email="ngModel"/>
+        <div *ngIf="f.submitted && email.invalid">
+          <div *ngIf="email.errors.email">Email musi być poprawny</div>
+        </div>
+      </div>
+
+      <div>
+        <label for="phoneNumber">Telefon</label><br>
+        <input id="phoneNumber" type="text"  name="phoneNumber" [(ngModel)]="person.phoneNumber" #phoneNumber="ngModel"/>
+      </div>
+
+      <div>
+        <label for="additionalInformations">Dodatkowe Informacje</label><br>
+        <textarea id="additionalInformations" [(ngModel)]="person.additionalInformations" #additionalInformations="ngModel" name="additionalInformations" rows="4" cols="50">
+        </textarea>
+      </div>
+
+
+    <div class="line"></div>
+
+      <h1>Adres:</h1>
+
+      <h2>Lista adresów:</h2>
+      <div *ngFor="let add of addresses">
+        <span id="addressListElement" (click)="fillAddressData(add)">{{add.addressType}}</span>
+        <span class="delete-address" (click)="delete(add)">Usuń</span>
+      </div>
+
+      <form *ngIf="!isSuccessful" name="address" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+        <div>
+          <label for="addressType">Nazwa typu adresu</label><br>
+          <input id="addressType" type="text"  name="addressType" [(ngModel)]="address.addressType" required  #addressType="ngModel"/>
+          <div *ngIf="f.submitted && addressType.invalid">
+            <div *ngIf="addressType.errors.required">Proszę podać nazwę typu adresu</div>
+          </div>
+        </div>
+
+        <div>
+          <label for="street">Ulica</label><br>
+          <input id="street" type="text"  name="street" [(ngModel)]="address.street" required  #street="ngModel"/>
+          <div *ngIf="f.submitted && street.invalid">
+            <div *ngIf="street.errors.required">Proszę podać nazwę ulicy</div>
+          </div>
+        </div>
+
+        <div>
+          <label for="houseNumber">Nr domu</label><br>
+          <input id="houseNumber" type="text"  name="houseNumber" [(ngModel)]="address.houseNumber" required  #houseNumber="ngModel"/>
+          <div *ngIf="f.submitted && houseNumber.invalid">
+            <div *ngIf="houseNumber.errors.required">Proszę podać numer domu</div>
+          </div>
+        </div>
+
+        <div>
+          <label for="apartmentNumber">Nr mieszkania</label><br>
+          <input id="apartmentNumber" type="text"  name="apartmentNumber" [(ngModel)]="address.apartmentNumber" required  #apartmentNumber="ngModel"/>
+          <div *ngIf="f.submitted && apartmentNumber.invalid">
+            <div *ngIf="apartmentNumber.errors.required">Proszę podać numer mieszkania</div>
+          </div>
+        </div>
+
+        <div>
+          <label for="zipCode">Kod pocztowy</label><br>
+          <input id="zipCode" type="text"  name="zipCode" [(ngModel)]="address.zipCode" required maxlength="6"  #zipCode="ngModel"/>
+          <div *ngIf="f.submitted && zipCode.invalid">
+            <div *ngIf="zipCode.errors.required">Proszę podać kod pocztowy</div>
+          </div>
+          <div *ngIf="!isZipCode(address.zipCode)">
+            Kod pocztowy musi mieć format: xx-xxx
+          </div>
+        </div>
+
+
+
+        <div>
+          <label for="city">Miasto</label><br>
+          <input id="city" type="text"  name="city" [(ngModel)]="address.city" required  #city="ngModel"/>
+          <div *ngIf="f.submitted && city.invalid">
+            <div *ngIf="city.errors.required">Proszę podać nazwę miasta</div>
+          </div>
+        </div>
+
+        <div class="address-buttons">
+          <p (click)="addAddress()">Dodaj adress</p>
+          <p (click)="clear()">Wyczyść</p>
+        </div>
+
+      </form>
+
+
+      <div class="line"></div>
+
+
+      <form *ngIf="!isSuccessful" name="obtaining" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+        <label for="obtainingWay">Sposób pozyskania</label><br>
+        <select name="obtainingWay" id="obtainingWay" [(ngModel)]="obtaining.obtainingWay" required  #obtainingWay="ngModel" >
+          <option value="none" selected> </option>
+          <option value="rekomendacja">rekomendacja</option>
+          <option value="konferencja_i_szkolenia">konferencja i szkolenie</option>
+          <option value="media_spolecznosciowe">media społecznościowe</option>
+          <option value="strona_www">strona www</option>
+        </select>
+
+        <div *ngIf="obtainingWay.value === 'rekomendacja'">
+          <div>
+            <label for="details">Rekomendujący</label><br>
+            <input id="details" type="text"  name="details" [(ngModel)]="obtaining.details" #details="ngModel"/>
+          </div>
+        </div>
+
+        <div *ngIf="obtainingWay.value === 'konferencja_i_szkolenia'">
+          <div>
+            <label for="details">Konferencja/Szkolenie</label><br>
+            <input id="details" type="text"  name="details" [(ngModel)]="obtaining.details" #details="ngModel"/>
+          </div>
+        </div>
+
+        <div *ngIf="obtainingWay.value === 'media_spolecznosciowe'">
+          <label for="details">Media społecznościowe</label><br>
+          <select name="details" id="details" [(ngModel)]="obtaining.details" size="5" required  #details="ngModel" >
+            <option value="facebook">Facebook</option>
+            <option value="twitter">Twitter</option>
+            <option value="linkedin">LinkedIn</option>
+            <option value="instagram">Instagram</option>
+            <option value="inne">Inne</option>
+          </select>
+
+          <div *ngIf="obtaining.details === 'inne'">
+            <label for="details2">Jakie</label><br>
+            <textarea id="details2" name="details2" rows="4" cols="50" [(ngModel)]="details2">
+
+            </textarea>
+          </div>
+        </div>
+
+      </form>
+
+
+
+
+
+
+      <div>
+        <button id="save">Zapisz</button>
+        <button routerLink="/contactList" id="cancel">Anuluj</button>
+      </div>
+
+      <div *ngIf="f.submitted && isAddingFailed">Dodawanie nieudane!<br />{{ errorMessage }}
+      </div>
+    </form>
+
+
+  </div>
+
+</div>
